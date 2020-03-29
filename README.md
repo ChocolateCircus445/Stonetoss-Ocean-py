@@ -10,7 +10,7 @@ This requires **PIL**, **requests**, and **pyperclip**. These can be installed b
 ### Windows:
 
 ```
-pip install PIL -t <current directory>
+pip install pillow -t <current directory>
 pip install requests -t <current directory>
 pip install pyperclip -t <current directory>
 ```
@@ -18,7 +18,7 @@ pip install pyperclip -t <current directory>
 ### Mac:
 
 ```
-pip3 install PIL -t <current directory>
+pip3 install pillow -t <current directory>
 pip3 install requests -t <current directory>
 pip3 install pyperclip -t <current directory>
 ```
