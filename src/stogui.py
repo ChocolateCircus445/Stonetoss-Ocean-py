@@ -1,7 +1,7 @@
 from tkinter import messagebox
 from tkinter import *
 from PIL.Image import ANTIALIAS
-import stocean, requests, random
+import stocean, requests, random, os
 from PIL import Image, ImageTk
 from io import BytesIO
 import pyperclip
@@ -37,11 +37,16 @@ def clear(frame):
 root = Tk()
 root.title("Stonetoss Ocean")
 root.geometry("800x710")
+root.configure(bg="white")
 screen = 0
 comicName = ""
 
 def createLogo(frame):
-    logoLoad = imgFromURL("https://raw.githubusercontent.com/ChocolateCircus445/Stonetoss-Ocean/master/logo.png")
+    print("createLogo called")
+    #logoLoad = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png"))
+    #logoLoad = Image.open(os.path.join(os.getcwd(), "logo.png"))
+    logoLoad = imgFromURL("https://github.com/ChocolateCircus445/Stonetoss-Ocean/blob/master/logo.png?raw=true")
+    #logoLoad = Image.open("logo.png")
     logoLoad = logoLoad.resize((175, 62), ANTIALIAS)  # logo too big, must resize
     logoRender = ImageTk.PhotoImage(logoLoad)
     logo = Label(root, image=logoRender)
@@ -49,6 +54,7 @@ def createLogo(frame):
     logo.pack()
 
 def createBtns(frame, comicobj):
+    print("createBtns called")
     btnframe = Frame(frame)
     btnframe.pack()
     clb = Button(btnframe, text="Copy link", command=lambda: copyLink(comicobj.image))
@@ -62,11 +68,13 @@ def createBtns(frame, comicobj):
 
 
 def copyLink(link):
+    print("copyLink called")
     pyperclip.copy(link)
     messagebox.showinfo("Copied", "Link copied.")
 
 
 def gotoArchives():
+    print("gotoArchives called")
     global screen
     screen = 2
     clear(root)
@@ -74,6 +82,7 @@ def gotoArchives():
 
 
 def displayInfo(cm):
+    print("displayInfo called")
     messagebox.showinfo(cm.name, """
     Name: %s
 
@@ -86,6 +95,9 @@ def displayInfo(cm):
 
 
 def displayLatest():
+    print("displayLatest called")
+
+
     # Clear the frame in case the user wants to go back to latest
     clear(root)
 
@@ -95,7 +107,7 @@ def displayLatest():
     cmc = stocean.grabLatest()
 
     # Display comic name
-    cName = Label(root, text=cmc.name, font="Arial 30 bold")
+    cName = Label(root, text=cmc.name, font="Arial 30 bold", background="white")
     cName.pack()
 
     # Display buttons
@@ -114,6 +126,7 @@ def displayLatest():
 
 
 def displaySpecific(cname):
+    print("displaySpecific called")
     try:
         # Clear the frame in case the user wants to go back to latest
         clear(root)
@@ -124,7 +137,7 @@ def displaySpecific(cname):
         cmc = stocean.grabSpecific(cname)
 
         # Display comic name
-        cName = Label(root, text=cmc.name, font="Arial 30 bold")
+        cName = Label(root, text=cmc.name, font="Arial 30 bold", background="white")
         cName.pack()
 
         # Display buttons
@@ -143,18 +156,20 @@ def displaySpecific(cname):
     except IndexError:
         clear(root)
         createLogo(root)
-        etit = Label(root, text="This comic doesn't exist.", font="Arial 30 bold")
+        etit = Label(root, text="This comic doesn't exist.", font="Arial 30 bold", background="white")
         etit.pack()
         hbtn = Button(root, text="Latest comic", command=displayLatest)
         hbtn.pack()
 
 def randComic():
+    print("randComic called")
     displaySpecific(stocean.grabArchives()[random.randint(1, len(stocean.grabArchives())) - 1]['link'])
 
 def displayArchives():
+    print("displayArchives called")
     clear(root)
     createLogo(root)
-    l = Label(root, text="Archives", font="Arial 30 bold")
+    l = Label(root, text="Archives", font="Arial 30 bold", background="white")
     l.pack()
     archs = stocean.grabArchives()[::-1]
     randButton = Button(root, text="Random", fg="blue", command=randComic)
