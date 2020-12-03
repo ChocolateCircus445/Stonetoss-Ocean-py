@@ -1,7 +1,8 @@
 from tkinter import messagebox
+from tkinter.filedialog import asksaveasfile
 from tkinter import *
 from PIL.Image import ANTIALIAS
-import stocean, requests, random, os
+import stocean, requests, random
 from PIL import Image, ImageTk
 from io import BytesIO
 import pyperclip
@@ -53,10 +54,21 @@ def createLogo(frame):
     logo.image = logoRender
     logo.pack()
 
+def saveImage(comic):
+    files = [('PNG Image', '*.png')]
+    file = asksaveasfile(initialfile=comic.name, filetypes=files, defaultextension=files)
+    if file is None:
+        return
+    data = requests.get(comic.image).content
+    open(file.name, "wb").write(data)
+    messagebox.showinfo("Saved", "Comic saved. Remember to edit or remove the watermark!")
+
 def createBtns(frame, comicobj):
     print("createBtns called")
     btnframe = Frame(frame)
     btnframe.pack()
+    sib = Button(btnframe, text="Save image", command=lambda: saveImage(comicobj))
+    sib.pack(side=LEFT)
     clb = Button(btnframe, text="Copy link", command=lambda: copyLink(comicobj.image))
     clb.pack(side=LEFT)
     ab = Button(btnframe, text="Go to Archives", command=gotoArchives)
