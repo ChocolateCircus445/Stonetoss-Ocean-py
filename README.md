@@ -1,5 +1,24 @@
 # Stonetoss-Ocean-py
-[WIP] A port of Stonetoss Ocean for Python
+A port of Stonetoss Ocean for Python
+
+## Running executables (Windows and Mac)
+
+Click on the Releases tab on the right side of the page. Download the version that corresponds with your operating system.
+
+**Mac users!**
+
+There is a bug that causes the buttons and the scrollbar to partially disappear.
+
+For the buttons:
+
+Hold down the left mouse button on one of the buttons and drag down. Then release the mouse.
+
+For the scrollbar:
+
+Click the very right side of the screen.
+
+
+## Running with Python
 
 **Make sure Python 3 and PIP are installed before running**
 
